@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PCard Receipt Instructions – Summit Line Construction</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f0f4f8;
+      color: #1a2332;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: #1b3a5c;
+      color: #fff;
+      padding: 20px 24px;
+      text-align: center;
+    }
+    header .company {
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      opacity: 0.75;
+      margin-bottom: 6px;
+    }
+    header h1 {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    header .subtitle {
+      font-size: 13px;
+      opacity: 0.7;
+      margin-top: 4px;
+    }
+
+    /* ── Main card ── */
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      margin: 20px 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+    .card-section {
+      padding: 20px 20px;
+    }
+    .card-section + .card-section {
+      border-top: 1px solid #e8edf2;
+    }
+
+    /* ── Step badges ── */
+    .step-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #1b3a5c;
+      margin-bottom: 12px;
+    }
+    .step-badge {
+      background: #1b3a5c;
+      color: #fff;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ── PDF viewer section ── */
+    .pdf-section h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #1a2332;
+    }
+    .pdf-section p {
+      font-size: 14px;
+      color: #4a5568;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .pdf-embed-wrapper {
+      border: 1px solid #d0d9e4;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #f7f9fc;
+    }
+    .pdf-embed-wrapper iframe {
+      width: 100%;
+      height: 420px;
+      border: none;
+      display: block;
+    }
+    .pdf-fallback {
+      padding: 24px;
+      text-align: center;
+    }
+    .pdf-fallback .pdf-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+    .pdf-fallback p {
+      font-size: 14px;
+      color: #4a5568;
+      margin-bottom: 0;
+    }
+    .btn-pdf {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 10px 22px;
+      background: #1b3a5c;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .btn-pdf:hover { background: #15304e; }
+
+    /* ── Acknowledgement form ── */
+    .form-desc {
+      font-size: 14px;
+      color: #4a5568;
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+    .sig-box {
+      background: #f0f4f8;
+      border: 1px solid #c9d5e0;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+    }
+    .sig-box label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #1b3a5c;
+      margin-bottom: 8px;
+    }
+    .sig-box input[type="text"] {
+      width: 100%;
+      border: 1px solid #b0bfcc;
+      border-radius: 6px;
+      padding: 11px 12px;
+      font-size: 16px; /* prevent iOS zoom */
+      font-family: inherit;
+      background: #fff;
+      color: #1a2332;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .sig-box input[type="text"]:focus {
+      border-color: #1b3a5c;
+      box-shadow: 0 0 0 3px rgba(27,58,92,0.12);
+    }
+    .sig-note {
+      font-size: 12px;
+      color: #718096;
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    /* checkbox */
+    .confirm-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .confirm-row input[type="checkbox"] {
+      margin-top: 2px;
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      accent-color: #1b3a5c;
+      cursor: pointer;
+    }
+    .confirm-row label {
+      font-size: 14px;
+      color: #2d3748;
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+    /* submit button */
+    #ack-btn {
+      width: 100%;
+      padding: 15px;
+      background: #1b6b3a;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    #ack-btn:hover:not(:disabled) { background: #155730; }
+    #ack-btn:active:not(:disabled) { transform: scale(0.98); }
+    #ack-btn:disabled { background: #9abaab; cursor: not-allowed; }
+
+    /* ── Success / Error states ── */
+    #success-msg, #error-msg {
+      display: none;
+      border-radius: 8px;
+      padding: 18px 20px;
+      font-size: 15px;
+      line-height: 1.5;
+      margin-top: 16px;
+      text-align: center;
+    }
+    #success-msg {
+      background: #e6f4ed;
+      border: 1px solid #7dc89a;
+      color: #1b6b3a;
+    }
+    #success-msg .check { font-size: 32px; margin-bottom: 8px; }
+    #error-msg {
+      background: #fdf0f0;
+      border: 1px solid #e8a0a0;
+      color: #9b2c2c;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 20px 16px;
+      font-size: 12px;
+      color: #718096;
+    }
+
+    /* ── Spinner ── */
+    .spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 3px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Responsive ── */
+    @media (min-width: 600px) {
+      .card { margin: 28px auto; max-width: 620px; }
+      header { padding: 28px 32px; }
+      header h1 { font-size: 26px; }
+      .card-section { padding: 28px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="company">Summit Line Construction</div>
+  <h1>PCard Receipt Submission Instructions</h1>
+  <div class="subtitle">Please review and acknowledge before using your P-Card</div>
+</header>
+
+<div class="card">
+
+  <!-- ── STEP 1: Review PDF ── -->
+  <div class="card-section pdf-section">
+    <div class="step-label">
+      <span class="step-badge">1</span> Review Instructions
+    </div>
+    <h2>PCard Receipt Submission Policy</h2>
+    <p>Read the full instructions below before acknowledging. You are responsible for following these procedures for every P-Card transaction.</p>
+
+    <div class="pdf-embed-wrapper">
+      <!--
+        SETUP: Replace https://quantaservices.sharepoint.com/:b:/r/sites/SummitAccountsPayable/Shared%20Documents/PCard%20Receipt%20Submission%20Requi below with the direct link
+        to your PCard Instructions PDF stored in SharePoint.
+        To get this link: open the file in SharePoint → click the "..." menu → "Copy link"
+        → change "?e=..." sharing settings to "People in your organization" → paste here.
+      -->
+      <iframe
+        id="pdf-frame"
+        src="https://quantaservices.sharepoint.com/:b:/r/sites/SummitAccountsPayable/Shared%20Documents/PCard%20Receipt%20Submission%20Requi"
+        title="PCard Receipt Submission Instructions PDF"
+        onerror="showFallback()"
+      ></iframe>
+      <div id="pdf-fallback" class="pdf-fallback" style="display:none;">
+        <div class="pdf-icon">📄</div>
+        <p>Tap the button below to open and review the instructions:</p>
+        <a id="pdf-link" href="https://quantaservices.sharepoint.com/:b:/r/sites/SummitAccountsPayable/Shared%20Documents/PCard%20Receipt%20Submission%20Requi" target="_blank" rel="noopener" class="btn-pdf">
+          Open Instructions PDF ↗
+        </a>
+      </div>
+    </div>
+
+    <div id="pdf-open-link" style="margin-top:12px; text-align:center;">
+      <a id="pdf-open-anchor" href="https://quantaservices.sharepoint.com/:b:/r/sites/SummitAccountsPayable/Shared%20Documents/PCard%20Receipt%20Submission%20Requi" target="_blank" rel="noopener"
+         style="font-size:13px; color:#1b3a5c; text-decoration:underline;">
+        Open in new tab ↗
+      </a>
+    </div>
+  </div>
+
+  <!-- ── STEP 2: Acknowledge ── -->
+  <div class="card-section">
+    <div class="step-label">
+      <span class="step-badge">2</span> Acknowledge &amp; Sign
+    </div>
+
+    <p class="form-desc">
+      By typing your full name and clicking <strong>Acknowledge Receipt</strong>, you confirm that you have read and understood the PCard Receipt Submission Instructions and agree to follow the procedures outlined.
+    </p>
+
+    <form id="ack-form" novalidate>
+      <!--
+        SETUP: Replace 39024842-e6da-490f-a234-acc4b7502899 with your key from web3forms.com.
+        Sign up free at https://web3forms.com using receipts@summitlineconstruction.com.
+      -->
+      <input type="hidden" name="access_key" value="39024842-e6da-490f-a234-acc4b7502899" />
+      <input type="hidden" name="subject" value="PCard Instructions Acknowledged" />
+      <input type="hidden" name="from_name" value="PCard Acknowledgement System" />
+      <input type="hidden" name="redirect" value="false" />
+
+      <div class="sig-box">
+        <label for="full-name">Full Name (Electronic Signature)</label>
+        <input
+          type="text"
+          id="full-name"
+          name="name"
+          placeholder="Type your full name"
+          autocomplete="name"
+          spellcheck="false"
+          required
+        />
+        <div class="sig-note">Typing your name here serves as your electronic signature acknowledging receipt of these instructions.</div>
+      </div>
+
+      <div class="confirm-row">
+        <input type="checkbox" id="check-personal" required />
+        <label for="check-personal">
+          I understand that the use of the PCard for personal purchases is strictly prohibited and unauthorized. I will not use the PCard, under any circumstances, for personal use.
+        </label>
+      </div>
+
+      <div class="confirm-row">
+        <input type="checkbox" id="check-receipts" required />
+        <label for="check-receipts">
+          I understand that I am personally responsible for obtaining all original detailed receipts (purchase and credit documents) and submitting them in accordance with the PCard Policy.
+        </label>
+      </div>
+
+      <div class="confirm-row">
+        <input type="checkbox" id="confirm-check" required />
+        <label for="confirm-check">
+          I confirm that I have read and understand the PCard Receipt Submission Instructions and agree to comply with the stated requirements.
+        </label>
+      </div>
+
+      <button type="submit" id="ack-btn" disabled>
+        Acknowledge Receipt of Instructions
+      </button>
+
+      <div id="success-msg">
+        <div class="check">✅</div>
+        <strong>Acknowledgement recorded.</strong><br/>
+        A confirmation has been sent to the receipts team. Thank you!
+      </div>
+      <div id="error-msg">
+        Something went wrong. Please try again or contact <a href="mailto:receipts@summitlineconstruction.com">receipts@summitlineconstruction.com</a>.
+      </div>
+
+    </form>
+  </div>
+
+</div>
+
+<footer>
+  Summit Line Construction · PCard Compliance · <span id="year"></span>
+</footer>
+
+<script>
+  // ── Populate year ──
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ── Enable button only when name + all three boxes are checked ──
+  const nameInput      = document.getElementById('full-name');
+  const checkPersonal  = document.getElementById('check-personal');
+  const checkReceipts  = document.getElementById('check-receipts');
+  const checkbox       = document.getElementById('confirm-check');
+  const btn            = document.getElementById('ack-btn');
+
+  function checkReady() {
+    btn.disabled = !(
+      nameInput.value.trim().length >= 2 &&
+      checkPersonal.checked &&
+      checkReceipts.checked &&
+      checkbox.checked
+    );
+  }
+  nameInput.addEventListener('input', checkReady);
+  checkPersonal.addEventListener('change', checkReady);
+  checkReceipts.addEventListener('change', checkReady);
+  checkbox.addEventListener('change', checkReady);
+
+  // ── Handle iFrame PDF load error (mobile browsers often can't embed SharePoint) ──
+  const pdfFrame    = document.getElementById('pdf-frame');
+  const pdfFallback = document.getElementById('pdf-fallback');
+
+  function showFallback() {
+    pdfFrame.style.display = 'none';
+    pdfFallback.style.display = 'block';
+  }
+
+  // If iframe hasn't loaded after 5 seconds, show fallback link
+  let pdfTimer = setTimeout(() => {
+    try {
+      // On mobile, iframe src may not load at all – show the button
+      if (!pdfFrame.contentDocument || pdfFrame.contentDocument.body.innerHTML === '') {
+        showFallback();
+      }
+    } catch(e) {
+      // Cross-origin access blocked = PDF is loading (good)
+    }
+  }, 5000);
+
+  pdfFrame.addEventListener('load', () => clearTimeout(pdfTimer));
+
+  // ── Form submission via Web3Forms ──
+  document.getElementById('ack-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const name = nameInput.value.trim();
+    if (name.length < 2) { nameInput.focus(); return; }
+    if (!checkbox.checked) return;
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>Submitting…';
+
+    const now = new Date();
+    const timestamp = now.toLocaleString('en-US', {
+      timeZone: 'America/Chicago',
+      dateStyle: 'full',
+      timeStyle: 'short'
+    });
+
+    const formData = new FormData(this);
+    formData.set('name', name);
+    formData.append('message',
+      'Employee Name: ' + name + '\n' +
+      'Acknowledged At: ' + timestamp + ' (Central Time)\n' +
+      'Device: ' + (/Mobi|Android/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop') + '\n\n' +
+      'This employee has read and acknowledged the PCard Receipt Submission Instructions.'
+    );
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        document.getElementById('ack-form').style.display = 'none';
+        document.getElementById('success-msg').style.display = 'block';
+      } else {
+        throw new Error(data.message || 'Submission failed');
+      }
+    } catch (err) {
+      console.error(err);
+      btn.disabled = false;
+      btn.innerHTML = 'Acknowledge Receipt of Instructions';
+      document.getElementById('error-msg').style.display = 'block';
+    }
+  });
+</script>
+
+</body>
+</html>
