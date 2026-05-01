@@ -14,7 +14,6 @@
       min-height: 100vh;
     }
 
-    /* ── Header ── */
     header {
       background: #CD0A1B;
       color: #fff;
@@ -25,7 +24,7 @@
       font-size: 13px;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      opacity: 0.75;
+      opacity: 0.85;
       margin-bottom: 6px;
     }
     header h1 {
@@ -35,11 +34,10 @@
     }
     header .subtitle {
       font-size: 13px;
-      opacity: 0.7;
+      opacity: 0.8;
       margin-top: 4px;
     }
 
-    /* ── Main card ── */
     .card {
       background: #fff;
       border-radius: 12px;
@@ -47,14 +45,9 @@
       box-shadow: 0 2px 12px rgba(0,0,0,0.08);
       overflow: hidden;
     }
-    .card-section {
-      padding: 20px 20px;
-    }
-    .card-section + .card-section {
-      border-top: 1px solid #e8edf2;
-    }
+    .card-section { padding: 20px; }
+    .card-section + .card-section { border-top: 1px solid #e8edf2; }
 
-    /* ── Step badges ── */
     .step-label {
       display: inline-flex;
       align-items: center;
@@ -63,11 +56,11 @@
       font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
-      color: #1b3a5c;
+      color: #CD0A1B;
       margin-bottom: 12px;
     }
     .step-badge {
-      background: #1b3a5c;
+      background: #CD0A1B;
       color: #fff;
       border-radius: 50%;
       width: 22px;
@@ -80,7 +73,6 @@
       flex-shrink: 0;
     }
 
-    /* ── PDF viewer section ── */
     .pdf-section h2 {
       font-size: 16px;
       font-weight: 600;
@@ -109,29 +101,21 @@
       padding: 24px;
       text-align: center;
     }
-    .pdf-fallback .pdf-icon {
-      font-size: 48px;
-      margin-bottom: 12px;
-    }
-    .pdf-fallback p {
-      font-size: 14px;
-      color: #4a5568;
-      margin-bottom: 0;
-    }
+    .pdf-fallback .pdf-icon { font-size: 48px; margin-bottom: 12px; }
+    .pdf-fallback p { font-size: 14px; color: #4a5568; }
     .btn-pdf {
       display: inline-block;
       margin-top: 14px;
       padding: 10px 22px;
-      background: #1b3a5c;
+      background: #CD0A1B;
       color: #fff;
       text-decoration: none;
       border-radius: 6px;
       font-size: 14px;
       font-weight: 600;
     }
-    .btn-pdf:hover { background: #15304e; }
+    .btn-pdf:hover { background: #aa0011; }
 
-    /* ── Acknowledgement form ── */
     .form-desc {
       font-size: 14px;
       color: #4a5568;
@@ -151,7 +135,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      color: #1b3a5c;
+      color: #CD0A1B;
       margin-bottom: 8px;
     }
     .sig-box input[type="text"] {
@@ -159,7 +143,7 @@
       border: 1px solid #b0bfcc;
       border-radius: 6px;
       padding: 11px 12px;
-      font-size: 16px; /* prevent iOS zoom */
+      font-size: 16px;
       font-family: inherit;
       background: #fff;
       color: #1a2332;
@@ -167,8 +151,8 @@
       transition: border-color 0.2s;
     }
     .sig-box input[type="text"]:focus {
-      border-color: #1b3a5c;
-      box-shadow: 0 0 0 3px rgba(27,58,92,0.12);
+      border-color: #CD0A1B;
+      box-shadow: 0 0 0 3px rgba(205,10,27,0.1);
     }
     .sig-note {
       font-size: 12px;
@@ -177,19 +161,18 @@
       font-style: italic;
     }
 
-    /* checkbox */
     .confirm-row {
       display: flex;
       align-items: flex-start;
       gap: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
     .confirm-row input[type="checkbox"] {
       margin-top: 2px;
       width: 18px;
       height: 18px;
       flex-shrink: 0;
-      accent-color: #1b3a5c;
+      accent-color: #CD0A1B;
       cursor: pointer;
     }
     .confirm-row label {
@@ -199,7 +182,16 @@
       cursor: pointer;
     }
 
-    /* submit button */
+    #btn-hint {
+      font-size: 13px;
+      color: #9b2c2c;
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      background: #fff5f5;
+      border: 1px solid #fed7d7;
+      border-radius: 6px;
+    }
+
     #ack-btn {
       width: 100%;
       padding: 15px;
@@ -209,7 +201,6 @@
       border-radius: 8px;
       font-size: 16px;
       font-weight: 700;
-      letter-spacing: 0.3px;
       cursor: pointer;
       transition: background 0.2s, transform 0.1s;
     }
@@ -217,7 +208,6 @@
     #ack-btn:active:not(:disabled) { transform: scale(0.98); }
     #ack-btn:disabled { background: #9abaab; cursor: not-allowed; }
 
-    /* ── Success / Error states ── */
     #success-msg, #error-msg {
       display: none;
       border-radius: 8px;
@@ -239,7 +229,6 @@
       color: #9b2c2c;
     }
 
-    /* ── Footer ── */
     footer {
       text-align: center;
       padding: 20px 16px;
@@ -247,7 +236,6 @@
       color: #718096;
     }
 
-    /* ── Spinner ── */
     .spinner {
       display: inline-block;
       width: 18px;
@@ -261,12 +249,11 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ── Responsive ── */
     @media (min-width: 600px) {
       .card { margin: 28px auto; max-width: 620px; }
       header { padding: 28px 32px; }
       header h1 { font-size: 26px; }
-      .card-section { padding: 28px 28px; }
+      .card-section { padding: 28px; }
     }
   </style>
 </head>
@@ -280,7 +267,7 @@
 
 <div class="card">
 
-  <!-- ── STEP 1: Review PDF ── -->
+  <!-- STEP 1: Review PDF -->
   <div class="card-section pdf-section">
     <div class="step-label">
       <span class="step-badge">1</span> Review Instructions
@@ -289,33 +276,29 @@
     <p>Read the full instructions below before acknowledging. You are responsible for following these procedures for every P-Card transaction.</p>
 
     <div class="pdf-embed-wrapper">
-      <!--
-        PDF file loaded from the same GitHub repository folder.
-      -->
       <iframe
         id="pdf-frame"
         src="PCard%20Receipt%20Submission%20Requirements.pdf"
         title="PCard Receipt Submission Instructions PDF"
-        onerror="showFallback()"
       ></iframe>
       <div id="pdf-fallback" class="pdf-fallback" style="display:none;">
         <div class="pdf-icon">📄</div>
         <p>Tap the button below to open and review the instructions:</p>
-        <a id="pdf-link" href="PCard%20Receipt%20Submission%20Requirements.pdf" target="_blank" rel="noopener" class="btn-pdf">
+        <a href="PCard%20Receipt%20Submission%20Requirements.pdf" target="_blank" rel="noopener" class="btn-pdf">
           Open Instructions PDF ↗
         </a>
       </div>
     </div>
 
-    <div id="pdf-open-link" style="margin-top:12px; text-align:center;">
-      <a id="pdf-open-anchor" href="PCard%20Receipt%20Submission%20Requirements.pdf" target="_blank" rel="noopener"
-         style="font-size:13px; color:#1b3a5c; text-decoration:underline;">
+    <div style="margin-top:12px; text-align:center;">
+      <a href="PCard%20Receipt%20Submission%20Requirements.pdf" target="_blank" rel="noopener"
+         style="font-size:13px; color:#CD0A1B; text-decoration:underline;">
         Open in new tab ↗
       </a>
     </div>
   </div>
 
-  <!-- ── STEP 2: Acknowledge ── -->
+  <!-- STEP 2: Acknowledge -->
   <div class="card-section">
     <div class="step-label">
       <span class="step-badge">2</span> Acknowledge &amp; Sign
@@ -340,33 +323,32 @@
           placeholder="Type your full name"
           autocomplete="name"
           spellcheck="false"
-          required
         />
         <div class="sig-note">Typing your name here serves as your electronic signature acknowledging receipt of these instructions.</div>
       </div>
 
       <div class="confirm-row">
-        <input type="checkbox" id="check-personal" required />
+        <input type="checkbox" id="check-personal" />
         <label for="check-personal">
           I understand that the use of the PCard for personal purchases is strictly prohibited and unauthorized. I will not use the PCard, under any circumstances, for personal use.
         </label>
       </div>
 
       <div class="confirm-row">
-        <input type="checkbox" id="check-receipts" required />
+        <input type="checkbox" id="check-receipts" />
         <label for="check-receipts">
           I understand that I am personally responsible for obtaining all original detailed receipts (purchase and credit documents) and submitting them in accordance with the PCard Policy.
         </label>
       </div>
 
       <div class="confirm-row">
-        <input type="checkbox" id="confirm-check" required />
+        <input type="checkbox" id="confirm-check" />
         <label for="confirm-check">
           I confirm that I have read and understand the PCard Receipt Submission Instructions and agree to comply with the stated requirements.
         </label>
       </div>
 
-      <div id="btn-hint" style="font-size:13px; color:#9b2c2c; margin-bottom:10px; display:block;">
+      <div id="btn-hint">
         ⚠ Please type your full name and check all three boxes above to continue.
       </div>
 
@@ -380,7 +362,8 @@
         A confirmation has been sent to the receipts team. Thank you!
       </div>
       <div id="error-msg">
-        Something went wrong. Please try again or contact <a href="mailto:receipts@summitlineconstruction.com">receipts@summitlineconstruction.com</a>.
+        Something went wrong. Please try again or contact
+        <a href="mailto:receipts@summitlineconstruction.com">receipts@summitlineconstruction.com</a>.
       </div>
 
     </form>
@@ -389,25 +372,23 @@
 </div>
 
 <footer>
-  Summit Line Construction · PCard Compliance · <span id="year"></span>
+  Summit Line Construction &middot; PCard Compliance &middot; <span id="year"></span>
 </footer>
 
 <script>
-  // ── Populate year ──
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // ── Enable button only when name + all three boxes are checked ──
-  const nameInput     = document.getElementById('full-name');
-  const checkPersonal = document.getElementById('check-personal');
-  const checkReceipts = document.getElementById('check-receipts');
-  const checkbox      = document.getElementById('confirm-check');
-  const btn           = document.getElementById('ack-btn');
-  const btnHint       = document.getElementById('btn-hint');
+  var nameInput     = document.getElementById('full-name');
+  var checkPersonal = document.getElementById('check-personal');
+  var checkReceipts = document.getElementById('check-receipts');
+  var confirmCheck  = document.getElementById('confirm-check');
+  var btn           = document.getElementById('ack-btn');
+  var btnHint       = document.getElementById('btn-hint');
 
   function checkReady() {
-    const nameOk  = nameInput.value.trim().length >= 2;
-    const allChecked = checkPersonal.checked && checkReceipts.checked && checkbox.checked;
-    const ready   = nameOk && allChecked;
+    var nameOk      = nameInput.value.trim().length >= 2;
+    var allChecked  = checkPersonal.checked && checkReceipts.checked && confirmCheck.checked;
+    var ready       = nameOk && allChecked;
 
     btn.disabled = !ready;
 
@@ -425,78 +406,83 @@
     }
   }
 
-  // Run once on load so hint shows immediately
   checkReady();
 
   nameInput.addEventListener('input', checkReady);
   checkPersonal.addEventListener('change', checkReady);
   checkReceipts.addEventListener('change', checkReady);
-  checkbox.addEventListener('change', checkReady);
+  confirmCheck.addEventListener('change', checkReady);
 
-  // ── Handle iFrame PDF load error (mobile browsers often can't embed SharePoint) ──
-  const pdfFrame    = document.getElementById('pdf-frame');
-  const pdfFallback = document.getElementById('pdf-fallback');
+  // PDF iframe fallback
+  var pdfFrame    = document.getElementById('pdf-frame');
+  var pdfFallback = document.getElementById('pdf-fallback');
 
-  function showFallback() {
-    pdfFrame.style.display = 'none';
-    pdfFallback.style.display = 'block';
-  }
-
-  // If iframe hasn't loaded after 5 seconds, show fallback link
-  let pdfTimer = setTimeout(() => {
+  setTimeout(function() {
     try {
-      // On mobile, iframe src may not load at all – show the button
       if (!pdfFrame.contentDocument || pdfFrame.contentDocument.body.innerHTML === '') {
-        showFallback();
+        pdfFrame.style.display = 'none';
+        pdfFallback.style.display = 'block';
       }
     } catch(e) {
-      // Cross-origin access blocked = PDF is loading (good)
+      // cross-origin = PDF is loading fine
     }
   }, 5000);
 
-  pdfFrame.addEventListener('load', () => clearTimeout(pdfTimer));
+  pdfFrame.addEventListener('load', function() {
+    // PDF loaded successfully — nothing extra needed
+  });
 
-  // ── Form submission via Web3Forms ──
-  document.getElementById('ack-form').addEventListener('submit', async function(e) {
+  // Form submission via Web3Forms
+  document.getElementById('ack-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    const name = nameInput.value.trim();
+    var name = nameInput.value.trim();
     if (name.length < 2) { nameInput.focus(); return; }
-    if (!checkbox.checked) return;
+    if (!checkPersonal.checked || !checkReceipts.checked || !confirmCheck.checked) { return; }
 
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner"></span>Submitting…';
 
-    const now = new Date();
-    const timestamp = now.toLocaleString('en-US', {
+    var now = new Date();
+    var timestamp = now.toLocaleString('en-US', {
       timeZone: 'America/Chicago',
       dateStyle: 'full',
       timeStyle: 'short'
     });
 
-    const formData = new FormData(this);
+    var formData = new FormData(document.getElementById('ack-form'));
     formData.set('name', name);
-    formData.append('message',
+    formData.set('message',
       'Employee Name: ' + name + '\n' +
       'Acknowledged At: ' + timestamp + ' (Central Time)\n' +
       'Device: ' + (/Mobi|Android/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop') + '\n\n' +
-      'This employee has read and acknowledged the PCard Receipt Submission Instructions.'
+      'This employee has acknowledged:\n' +
+      '- No personal use of PCard\n' +
+      '- Responsible for obtaining all original receipts\n' +
+      '- Has read and agrees to PCard Receipt Submission Instructions'
     );
 
-    try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData
-      });
-      const data = await response.json();
-
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    })
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
       if (data.success) {
         document.getElementById('ack-form').style.display = 'none';
         document.getElementById('success-msg').style.display = 'block';
       } else {
         throw new Error(data.message || 'Submission failed');
       }
-    } catch (err) {
+    })
+    .catch(function(err) {
       console.error(err);
       btn.disabled = false;
-  
+      btn.innerHTML = 'Acknowledge Receipt of Instructions';
+      document.getElementById('error-msg').style.display = 'block';
+    });
+  });
+</script>
+
+</body>
+</html>
