@@ -16,7 +16,7 @@
 
     /* ── Header ── */
     header {
-      background: #1b3a5c;
+      background: #CD0A1B;
       color: #fff;
       padding: 20px 24px;
       text-align: center;
@@ -366,6 +366,10 @@
         </label>
       </div>
 
+      <div id="btn-hint" style="font-size:13px; color:#9b2c2c; margin-bottom:10px; display:block;">
+        ⚠ Please type your full name and check all three boxes above to continue.
+      </div>
+
       <button type="submit" id="ack-btn" disabled>
         Acknowledge Receipt of Instructions
       </button>
@@ -393,20 +397,37 @@
   document.getElementById('year').textContent = new Date().getFullYear();
 
   // ── Enable button only when name + all three boxes are checked ──
-  const nameInput      = document.getElementById('full-name');
-  const checkPersonal  = document.getElementById('check-personal');
-  const checkReceipts  = document.getElementById('check-receipts');
-  const checkbox       = document.getElementById('confirm-check');
-  const btn            = document.getElementById('ack-btn');
+  const nameInput     = document.getElementById('full-name');
+  const checkPersonal = document.getElementById('check-personal');
+  const checkReceipts = document.getElementById('check-receipts');
+  const checkbox      = document.getElementById('confirm-check');
+  const btn           = document.getElementById('ack-btn');
+  const btnHint       = document.getElementById('btn-hint');
 
   function checkReady() {
-    btn.disabled = !(
-      nameInput.value.trim().length >= 2 &&
-      checkPersonal.checked &&
-      checkReceipts.checked &&
-      checkbox.checked
-    );
+    const nameOk  = nameInput.value.trim().length >= 2;
+    const allChecked = checkPersonal.checked && checkReceipts.checked && checkbox.checked;
+    const ready   = nameOk && allChecked;
+
+    btn.disabled = !ready;
+
+    if (ready) {
+      btnHint.style.display = 'none';
+    } else {
+      btnHint.style.display = 'block';
+      if (!nameOk && !allChecked) {
+        btnHint.textContent = '⚠ Please type your full name and check all three boxes above to continue.';
+      } else if (!nameOk) {
+        btnHint.textContent = '⚠ Please type your full name above to continue.';
+      } else {
+        btnHint.textContent = '⚠ Please check all three boxes above to continue.';
+      }
+    }
   }
+
+  // Run once on load so hint shows immediately
+  checkReady();
+
   nameInput.addEventListener('input', checkReady);
   checkPersonal.addEventListener('change', checkReady);
   checkReceipts.addEventListener('change', checkReady);
